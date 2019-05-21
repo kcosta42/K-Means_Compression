@@ -32,15 +32,16 @@ if __name__ == '__main__':
 
   args = parser.parse_args()
   original = np.array(Image.open(args.image))
-  size = original.shape[0]
+  width = original.shape[0]
+  height = original.shape[1]
 
-  original = original.reshape(size * size, 3)
+  original = original.reshape(width * height, 3)
   _, axs = plt.subplots(1, 2, figsize=(10, 7))
   axs[0].title.set_text("Original")
-  axs[0].imshow(original.reshape(size, size, 3))
+  axs[0].imshow(original.reshape(width, height, 3))
 
   compressed = run_pixels(original, n_iter=args.iter, K=args.K, random_state=args.rand)
   axs[1].title.set_text(f"Compressed, with {args.K} colors.")
-  axs[1].imshow(compressed.reshape(size, size, 3))
+  axs[1].imshow(compressed.reshape(width, height, 3))
 
   plt.show()
